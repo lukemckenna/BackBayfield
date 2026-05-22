@@ -46,9 +46,7 @@ ul, ol {
   --clr-dark: #212529;
   --clr-light: #ffffff;
   --clr-muted: #6c757d;
-  --clr-overlay: rgba(33, 37, 41, 0.4);
   --clr-border: rgba(33, 37, 41, 0.1);
-  --clr-glass: rgba(255, 255, 255, 0.95);
   --clr-faded: rgba(255, 255, 255, 0.7);
   --clr-light-hover: #f8f9fa;
   
@@ -69,7 +67,6 @@ ul, ol {
   --max-w-container: 114rem; /* 1140px */
   --max-w-hero: 80rem;       /* 800px */
   --max-nav-w: 76.8rem;      /* 768px */
-  --nav-offset: 7rem;        /* 70px */
   
   /* Borders & Radius */
   --border-thin: 0.1rem;     /* 1px */
@@ -131,9 +128,29 @@ section {
 .text-faded { color: var(--clr-faded); }
 .text-primary { color: var(--clr-primary); }
 
+p.bottom-space {
+  margin-bottom: var(--space-md);
+}
 .bg-primary { 
   background-color: var(--clr-primary); 
   color: var(--clr-light); 
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-150%);
+  background-color: var(--clr-dark);
+  color: var(--clr-light);
+  padding: var(--space-xs) var(--space-sm);
+  z-index: 2000;
+  transition: transform var(--transition-fast);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 /* ==========================================================================
@@ -211,6 +228,7 @@ section {
   .navbar-brand {
     color: inherit;
     font-weight: 700;
+    font-family: var(--font-heading);
     text-transform: uppercase;
     font-size: 2rem; /* 20px */
   }
@@ -329,7 +347,7 @@ section {
   justify-content: center;
   text-align: center;
   color: var(--clr-light);
-  background: linear-gradient(var(--clr-overlay), var(--clr-overlay)), url('header.jpg') center center / cover no-repeat fixed;
+  background: url('header.jpg') center center / cover no-repeat fixed;
   padding: var(--space-xxl) var(--space-sm);
 
   .hero-content {
