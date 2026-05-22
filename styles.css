@@ -146,6 +146,7 @@ section {
   z-index: 1000;
   padding-block: var(--space-sm);
   background-color: transparent;
+  color: var(--clr-light);
   backdrop-filter: none;
   border-bottom: var(--border-thin) solid transparent;
   transition: background-color var(--transition-normal), 
@@ -160,6 +161,7 @@ section {
   }
 
   .navbar-brand {
+    color: inherit;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 2rem; /* 20px */
@@ -170,7 +172,7 @@ section {
     gap: var(--space-md);
 
     a {
-      color: var(--clr-dark);
+      color: inherit;
       font-family: var(--font-heading);
       font-weight: 700;
       text-transform: uppercase;
@@ -194,9 +196,10 @@ section {
       
       @keyframes headerFade {
         to {
-          background-color: var(--clr-glass);
-          backdrop-filter: blur(10px);
+          background-color: var(--clr-light); /* Fades to SOLID white */
+          color: var(--clr-dark); /* Fades text to black */
           border-bottom-color: var(--clr-border);
+          backdrop-filter: blur(1rem);
         }
       }
     }
@@ -233,6 +236,7 @@ section {
 }
 
 .nav-toggle-label {
+  color: inherit;
   display: none;
   cursor: pointer;
   padding: var(--space-xs);
@@ -245,12 +249,12 @@ section {
 .hamburger {
   &, &::before, &::after {
     display: block;
-    background: var(--clr-dark);
+    background-color: currentColor;
     height: var(--border-thick);
     width: 2.5rem; /* 25px */
     border-radius: var(--radius-sm);
     position: relative;
-    transition: background var(--transition-fast);
+    transition: background-color var(--transition-normal);
   }
 
   &::before, &::after {
