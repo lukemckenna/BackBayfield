@@ -323,7 +323,7 @@ section {
   justify-content: center;
   text-align: center;
   color: var(--clr-light);
-  background: linear-gradient(var(--clr-overlay), var(--clr-overlay)), url('img/header.jpg') center center / cover no-repeat fixed;
+  background: linear-gradient(var(--clr-overlay), var(--clr-overlay)), url('header.jpg') center center / cover no-repeat fixed;
   padding: var(--space-xxl) var(--space-sm);
 
   .hero-content {
