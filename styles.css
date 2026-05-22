@@ -203,7 +203,7 @@ section {
   justify-content: center;
   text-align: center;
   color: var(--clr-light);
-  background: linear-gradient(rgba(33, 37, 41, 0.4), rgba(33, 37, 41, 0.4)), url('img/header.jpg') center center / cover no-repeat fixed;
+  background: linear-gradient(rgba(33, 37, 41, 0.4), rgba(33, 37, 41, 0.4)), url('header.jpg') center center / cover no-repeat fixed;
   padding: 4rem 1rem;
 
   .hero-content {
