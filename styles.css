@@ -143,11 +143,14 @@ section {
   
   position: sticky;
   top: 0;
-  background-color: var(--clr-glass);
-  backdrop-filter: blur(1rem);
-  border-bottom: var(--border-thin) solid var(--clr-border);
   z-index: 1000;
   padding-block: var(--space-sm);
+  background-color: transparent;
+  backdrop-filter: none;
+  border-bottom: var(--border-thin) solid transparent;
+  transition: background-color var(--transition-normal), 
+              backdrop-filter var(--transition-normal), 
+              border-color var(--transition-normal);
 
   .nav-container {
     display: flex;
@@ -177,8 +180,28 @@ section {
         color: var(--clr-primary);
       }
     }
+
+    @supports (animation-timeline: scroll()) {
+      .navbar {
+        /* Apply the animation, tie it to the scroll timeline */
+        animation: headerFade linear both;
+        animation-timeline: scroll();
+        /* Start at 0px scroll, finish fading at 50px (5rem) */
+        animation-range: 0 5rem; 
+        /* Remove the transition so it doesn't fight the animation */
+        transition: none; 
+      }
+      
+      @keyframes headerFade {
+        to {
+          background-color: var(--clr-glass);
+          backdrop-filter: blur(10px);
+          border-bottom-color: var(--clr-border);
+        }
+      }
+    }
     
-    @container navbar (max-width: var(--max-nav-w)) /* 768px */ {
+    @container navbar (max-width: var(--max-nav-w)) {
       width: 100%;
       flex-direction: column;
       align-items: center;
@@ -188,6 +211,13 @@ section {
       transition: max-height var(--transition-normal);
     }
   }
+}
+
+/* Fallback Scrolled class */
+.navbar.scrolled {
+  background-color: var(--clr-glass);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--clr-border);
 }
 
 /* CSS-Only Mobile Hamburger Toggle Logic */
