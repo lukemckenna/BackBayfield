@@ -262,12 +262,14 @@ section {
 
 /* --- Services Grid --- */
 .services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr)); /* 250px */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-lg);
   margin-top: var(--space-xl);
 
   .service-box {
+    flex: 0 1 28rem;
     padding: var(--space-sm);
 
     h3 {
