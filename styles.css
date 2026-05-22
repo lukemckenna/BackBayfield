@@ -1,4 +1,44 @@
-/* --- CSS Variables Dictionary --- */
+/* ==========================================================================
+   1. MODERN BROWSER RESET
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ==========================================================================
+   2. CSS VARIABLES (Base 10px Rem System)
+   ========================================================================== */
 :root {
   /* Colors */
   --clr-primary: #2a9cbe;
@@ -16,7 +56,7 @@
   --font-heading: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
   
-  /* Spacing (Base 10px) */
+  /* Spacing */
   --space-xs: 0.8rem;       /* 8px */
   --space-sm: 1.6rem;       /* 16px */
   --space-md: 2.4rem;       /* 24px */
@@ -42,21 +82,21 @@
   --transition-normal: 0.3s ease-in-out;
 }
 
+/* ==========================================================================
+   3. BASE TYPOGRAPHY & SETUP
+   ========================================================================== */
 html {
-  /* Changes default 16px to 10px for easier REM math (1rem = 10px) */
-  font-size: 62.5%; 
+  font-size: 62.5%; /* 1rem = 10px */
   scroll-behavior: smooth;
 }
 
 body {
   font-family: var(--font-body);
-  /* Explicitly reset body text back to 16px so it doesn't shrink to 10px */
-  font-size: 1.6rem; 
+  font-size: 1.6rem; /* 16px */
   color: var(--clr-dark);
   line-height: 1.6;
 }
 
-/* --- Typography & Links --- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 700;
@@ -72,7 +112,9 @@ a {
   }
 }
 
-/* --- Layout & Utilities --- */
+/* ==========================================================================
+   4. LAYOUT & UTILITIES
+   ========================================================================== */
 .container {
   width: 100%;
   max-width: var(--max-w-container);
@@ -94,7 +136,9 @@ section {
   color: var(--clr-light); 
 }
 
-/* --- Components --- */
+/* ==========================================================================
+   5. COMPONENTS
+   ========================================================================== */
 .divider {
   max-width: 5rem; /* 50px */
   border: 0;
@@ -136,12 +180,15 @@ section {
   }
 }
 
-/* --- Navigation --- */
+/* ==========================================================================
+   6. NAVIGATION (Fixed + Container Queries)
+   ========================================================================== */
 .navbar {
   container-type: inline-size;
   container-name: navbar;
   
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   z-index: 1000;
   padding-block: var(--space-sm);
@@ -150,6 +197,7 @@ section {
   backdrop-filter: none;
   border-bottom: var(--border-thin) solid transparent;
   transition: background-color var(--transition-normal), 
+              color var(--transition-normal),
               backdrop-filter var(--transition-normal), 
               border-color var(--transition-normal);
 
@@ -182,27 +230,6 @@ section {
         color: var(--clr-primary);
       }
     }
-
-    @supports (animation-timeline: scroll()) {
-      .navbar {
-        /* Apply the animation, tie it to the scroll timeline */
-        animation: headerFade linear both;
-        animation-timeline: scroll();
-        /* Start at 0px scroll, finish fading at 50px (5rem) */
-        animation-range: 0 5rem; 
-        /* Remove the transition so it doesn't fight the animation */
-        transition: none; 
-      }
-      
-      @keyframes headerFade {
-        to {
-          background-color: var(--clr-light); /* Fades to SOLID white */
-          color: var(--clr-dark); /* Fades text to black */
-          border-bottom-color: var(--clr-border);
-          backdrop-filter: blur(1rem);
-        }
-      }
-    }
     
     @container navbar (max-width: var(--max-nav-w)) {
       width: 100%;
@@ -216,19 +243,39 @@ section {
   }
 }
 
-/* Fallback Scrolled class */
+/* --- Native Scroll Animation (Chromium) --- */
+@supports (animation-timeline: scroll()) {
+  .navbar {
+    animation: headerFade linear both;
+    animation-timeline: scroll();
+    animation-range: 0 5rem; 
+    transition: none; 
+  }
+  
+  @keyframes headerFade {
+    to {
+      background-color: var(--clr-light); 
+      color: var(--clr-dark); 
+      border-bottom-color: var(--clr-border);
+      backdrop-filter: blur(1rem);
+    }
+  }
+}
+
+/* --- JS Fallback Scrolled Class (Safari/Mozilla) --- */
 .navbar.scrolled {
-  background-color: var(--clr-glass);
-  backdrop-filter: blur(10px);
+  background-color: var(--clr-light);
+  color: var(--clr-dark);
+  backdrop-filter: blur(1rem);
   border-bottom-color: var(--clr-border);
 }
 
-/* CSS-Only Mobile Hamburger Toggle Logic */
+/* --- CSS-Only Mobile Menu Toggle Logic --- */
 .nav-toggle {
   display: none;
 
   &:checked ~ .nav-menu {
-    @container navbar (max-width:  var(--max-nav-w)) {
+    @container navbar (max-width: var(--max-nav-w)) {
       max-height: 25rem; /* 250px */
       margin-top: var(--space-sm);
     }
@@ -241,7 +288,7 @@ section {
   cursor: pointer;
   padding: var(--space-xs);
 
-  @container navbar (max-width:  var(--max-nav-w)) {
+  @container navbar (max-width: var(--max-nav-w)) {
     display: block;
   }
 }
@@ -266,15 +313,17 @@ section {
   &::after { bottom: 0.8rem; /* 8px */ }
 }
 
-/* --- Hero Section --- */
+/* ==========================================================================
+   7. HERO SECTION
+   ========================================================================== */
 .masthead {
-  min-height: calc(100vh - var(--nav-offset));
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: var(--clr-light);
-  background: linear-gradient(var(--clr-overlay), var(--clr-overlay)), url('header.jpg') center center / cover no-repeat fixed;
+  background: linear-gradient(var(--clr-overlay), var(--clr-overlay)), url('img/header.jpg') center center / cover no-repeat fixed;
   padding: var(--space-xxl) var(--space-sm);
 
   .hero-content {
@@ -294,7 +343,9 @@ section {
   }
 }
 
-/* --- Services Grid --- */
+/* ==========================================================================
+   8. SERVICES GRID
+   ========================================================================== */
 .services-grid {
   display: flex;
   flex-wrap: wrap;
@@ -303,7 +354,7 @@ section {
   margin-top: var(--space-xl);
 
   .service-box {
-    flex: 0 1 28rem;
+    flex: 0 1 28rem; /* Shrinks if needed, centers correctly, starts at 280px */
     padding: var(--space-sm);
 
     h3 {
@@ -314,7 +365,7 @@ section {
       width: 6.4rem;  /* 64px */
       height: 6.4rem; /* 64px */
       margin-bottom: var(--space-sm);
-      margin-inline: auto;
+      margin-inline: auto; /* Ensures icons are perfectly centered */
     }
   }
 }
