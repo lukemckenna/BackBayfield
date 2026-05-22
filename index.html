@@ -131,7 +131,25 @@
             </div>
         </section>
     </main>
-
+    
+    <!-- Minimal JavaScript Fallback for Scroll Fade -->
+	<script>
+		// Feature check: Does the browser support CSS scroll timelines?
+		if (CSS.supports('animation-timeline', 'scroll()')) {
+			return;
+		}
+		  
+		const navbar = document.querySelector('.navbar');
+		
+		// Only run this event listener if native CSS is NOT supported
+		window.addEventListener('scroll', () => {
+		if (window.scrollY > 50) {
+		  navbar.classList.add('scrolled');
+		} else {
+		  navbar.classList.remove('scrolled');
+		}
+		});
+	</script>
 </body>
 
 </html>
