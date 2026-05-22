@@ -136,8 +136,6 @@
     <!-- Minimal JavaScript Fallback for Scroll Fade -->
 	<script>
 		(() => {
-			// Feature check: Does the browser support CSS scroll timelines?
-			if (!CSS || !CSS.supports || CSS.supports('animation-timeline', 'scroll()')) return;
 			const navbar = document.querySelector('.navbar');
 			if (!navbar) return;
 

@@ -49,6 +49,7 @@ ul, ol {
   --clr-border: rgba(33, 37, 41, 0.1);
   --clr-faded: rgba(255, 255, 255, 0.7);
   --clr-light-hover: #f8f9fa;
+  --clr-dark-hover: #1b2127;
   
   /* Typography */
   --font-heading: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -210,27 +211,40 @@ p.bottom-space {
   z-index: 1000;
   padding-block: var(--space-sm);
   background-color: rgba(255, 255, 255, 0);
-  color: var(--clr-light);
   backdrop-filter: none;
   border-bottom: var(--border-thin) solid rgba(33, 37, 41, 0);
-  transition: background-color var(--transition-normal), 
-              color var(--transition-normal),
-              backdrop-filter var(--transition-normal), 
-              border-color var(--transition-normal);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+
+  a {
+    color: var(--clr-light);
+    opacity: 0.8;
+    &:hover {
+      color: var(--clr-dark-hover);
+    }
+  }
+  &.scrolled {
+    a {
+      color: var(--clr-dark);
+      opacity: 1;
+      &:hover {
+        color: var(--clr-primary);
+      }
+    }
+  }
 
   .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-  }
 
-  .navbar-brand {
-    color: inherit;
-    font-weight: 700;
-    font-family: var(--font-heading);
-    text-transform: uppercase;
-    font-size: 2rem; /* 20px */
+    .navbar-brand {
+      font-weight: 700;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      font-size: 2rem; /* 20px */
+      transition: none;
+    }
   }
 
   .nav-menu {
@@ -238,15 +252,11 @@ p.bottom-space {
     gap: var(--space-md);
 
     a {
-      color: inherit;
       font-family: var(--font-heading);
       font-weight: 700;
       text-transform: uppercase;
       font-size: 1.44rem; /* 14.4px */
-
-      &:hover {
-        color: var(--clr-primary);
-      }
+      transition: none;
     }
     
     @container navbar (max-width: var(--max-nav-w)) {
@@ -257,31 +267,6 @@ p.bottom-space {
       max-height: 0;
       overflow: hidden;
       transition: max-height var(--transition-normal);
-    }
-  }
-}
-
-/* --- Native Scroll Animation (Chromium) --- */
-@supports (animation-timeline: scroll()) {
-  .navbar {
-    animation: headerFade linear both;
-    animation-timeline: scroll();
-    animation-range: 0 5rem; 
-    transition: none; 
-  }
-  
-  @keyframes headerFade {
-    0% {
-      background-color: rgba(255, 255, 255, 0); 
-      color: var(--clr-light);
-      border-bottom-color: rgba(33, 37, 41, 0);
-      backdrop-filter: blur(0px);
-    }
-    100% {
-      background-color: var(--clr-light); 
-      color: var(--clr-dark); 
-      border-bottom-color: var(--clr-border);
-      backdrop-filter: blur(1rem);
     }
   }
 }
