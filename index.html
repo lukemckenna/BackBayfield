@@ -141,6 +141,7 @@
 			
 			// Only run this event listener if native CSS is NOT supported
 			window.addEventListener('scroll', () => {
+				debugger;
 				if (window.scrollY > 50) {
 				  	navbar.classList.add('scrolled');
 					return;
