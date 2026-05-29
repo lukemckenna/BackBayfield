@@ -339,7 +339,7 @@ p.bottom-space {
     max-width: var(--max-w-hero);
 
     h1 {
-      font-size: clamp(3.2rem, 5vw, 6.4rem); /* 32px to 64px */
+      font-size: clamp(3.2rem, 5vw, 6.3rem); /* 32px to 64px */
       text-transform: uppercase;
     }
 
