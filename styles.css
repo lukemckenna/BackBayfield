@@ -148,10 +148,10 @@ p.bottom-space {
   z-index: 2000;
   transition: transform var(--transition-fast);
   text-decoration: none;
-}
 
-.skip-link:focus {
-  transform: translateY(0);
+  &:focus {
+    transform: translateY(0);
+  }
 }
 
 /* ==========================================================================
@@ -201,10 +201,7 @@ p.bottom-space {
 /* ==========================================================================
    6. NAVIGATION (Fixed + Container Queries)
    ========================================================================== */
-.navbar {
-  container-type: inline-size;
-  container-name: navbar;
-  
+.navbar {  
   position: fixed;
   width: 100%;
   top: 0;
@@ -222,7 +219,13 @@ p.bottom-space {
       color: var(--clr-dark-hover);
     }
   }
+
   &.scrolled {
+    background-color: var(--clr-light);
+    color: var(--clr-dark);
+    backdrop-filter: blur(1rem);
+    border-bottom-color: var(--clr-border);
+
     a {
       color: var(--clr-dark);
       opacity: 1;
@@ -245,81 +248,20 @@ p.bottom-space {
       font-size: 2rem; /* 20px */
       transition: none;
     }
-  }
 
-  .nav-menu {
-    display: flex;
-    gap: var(--space-md);
+    .nav-menu {
+      display: flex;
+      gap: var(--space-md);
 
-    a {
-      font-family: var(--font-heading);
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 1.44rem; /* 14.4px */
-      transition: none;
-    }
-    
-    @container navbar (max-width: var(--max-nav-w)) {
-      width: 100%;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-sm);
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height var(--transition-normal);
+      a {
+        font-family: var(--font-heading);
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 1.44rem; /* 14.4px */
+        transition: none;
+      }
     }
   }
-}
-
-/* --- JS Fallback Scrolled Class (Safari/Mozilla) --- */
-.navbar.scrolled {
-  background-color: var(--clr-light);
-  color: var(--clr-dark);
-  backdrop-filter: blur(1rem);
-  border-bottom-color: var(--clr-border);
-}
-
-/* --- CSS-Only Mobile Menu Toggle Logic --- */
-.nav-toggle {
-  display: none;
-
-  &:checked ~ .nav-menu {
-    @container navbar (max-width: var(--max-nav-w)) {
-      max-height: 25rem; /* 250px */
-      margin-top: var(--space-sm);
-    }
-  }
-}
-
-.nav-toggle-label {
-  color: inherit;
-  display: none;
-  cursor: pointer;
-  padding: var(--space-xs);
-
-  @container navbar (max-width: var(--max-nav-w)) {
-    display: block;
-  }
-}
-
-.hamburger {
-  &, &::before, &::after {
-    display: block;
-    background-color: currentColor;
-    height: var(--border-thick);
-    width: 2.5rem; /* 25px */
-    border-radius: var(--radius-sm);
-    position: relative;
-    transition: background-color var(--transition-normal);
-  }
-
-  &::before, &::after {
-    content: '';
-    position: absolute;
-  }
-
-  &::before { top: 0.8rem; /* 8px */ }
-  &::after { bottom: 0.8rem; /* 8px */ }
 }
 
 /* ==========================================================================
@@ -333,7 +275,7 @@ p.bottom-space {
   text-align: center;
   color: var(--clr-light);
   background: url('header.jpg') center center / cover no-repeat fixed;
-  padding: var(--space-xxl) var(--space-sm);
+  padding: calc(var(--space-xxl) * 1.5) var(--space-sm);
 
   .hero-content {
     max-width: var(--max-w-hero);
@@ -355,26 +297,28 @@ p.bottom-space {
 /* ==========================================================================
    8. SERVICES GRID
    ========================================================================== */
-.services-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-lg);
-  margin-top: var(--space-xl);
+#services {
+  .services-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
 
-  .service-box {
-    flex: 0 1 28rem; /* Shrinks if needed, centers correctly, starts at 280px */
-    padding: var(--space-sm);
+    .service-box {
+      flex: 0 1 28rem; /* Shrinks if needed, centers correctly, starts at 280px */
+      padding: var(--space-sm);
 
-    h3 {
-      margin-bottom: var(--space-sm);
-    }
+      h3 {
+        margin-bottom: var(--space-sm);
+      }
 
-    .icon {
-      width: 6.4rem;  /* 64px */
-      height: 6.4rem; /* 64px */
-      margin-bottom: var(--space-sm);
-      margin-inline: auto; /* Ensures icons are perfectly centered */
+      .icon {
+        width: 6.4rem;  /* 64px */
+        height: 6.4rem; /* 64px */
+        margin-bottom: var(--space-sm);
+        margin-inline: auto; /* Ensures icons are perfectly centered */
+      }
     }
   }
 }
